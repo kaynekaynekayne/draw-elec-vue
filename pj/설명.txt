@@ -16,3 +16,7 @@ Error: Unresolved node modules: encoding
 
 npm run dev 했을 때 자꾸 directory listing이 뜸
 => 처음 vue init 할 때 eslint 설치 ㄴㄴ
+
+
+---
+<b-col cols="숫자" > 숫자만큼 화면 차지
