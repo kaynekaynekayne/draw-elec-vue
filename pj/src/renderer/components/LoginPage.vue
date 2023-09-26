@@ -49,9 +49,9 @@
         data(){
             return{
                 modelData:{
-                    userId:'aa',
-                    password:'bb',
-                    isRememberMe:true
+                    userId:'',
+                    password:'',
+                    isRememberMe:{}
                 }
             }
         },
