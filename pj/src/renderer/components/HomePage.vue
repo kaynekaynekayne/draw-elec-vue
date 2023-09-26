@@ -24,12 +24,12 @@
         </div>
     </b-overlay>
 </template>
-
+   
 <script>
     export default {
         methods:{
             onClickTab(page){
-                
+
             }
         }
     }
