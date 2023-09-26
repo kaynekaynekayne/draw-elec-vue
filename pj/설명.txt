@@ -6,6 +6,8 @@
 //
 C:\elecvue\my-project\build\my-project Setup 0.0.1.exe
 
+- 부트스트랩
+npm i bootstrap@4 bootstrap-vue@2
 
 에러
 Error: Unresolved node modules: encoding
