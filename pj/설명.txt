@@ -8,6 +8,7 @@ C:\elecvue\my-project\build\my-project Setup 0.0.1.exe
 
 - 부트스트랩
 npm i bootstrap@4 bootstrap-vue@2
+다운 받고 main.js에 import 해줘야 쓸 수 있음
 
 에러
 Error: Unresolved node modules: encoding
