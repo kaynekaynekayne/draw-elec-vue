@@ -1,0 +1,15 @@
+1. npm install -g vue-cli
+2. vue init simulatedgreg/electron-vue my-project
+3. npm run dev
+// 중간에 에러 떠서 build.js에서 겹치는 코드 const tasks 지워버림
+3-1. npm run build
+//
+C:\elecvue\my-project\build\my-project Setup 0.0.1.exe
+
+
+에러
+Error: Unresolved node modules: encoding
+=> npm i encoding
+
+npm run dev 했을 때 자꾸 directory listing이 뜸
+=> 처음 vue init 할 때 eslint 설치 ㄴㄴ

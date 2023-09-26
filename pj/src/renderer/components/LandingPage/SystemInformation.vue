@@ -3,7 +3,7 @@
     <div class="title">Information</div>
     <div class="items">
       <div class="item">
-        <div class="name">Path:</div>
+        <div class="name">Patsh:</div>
         <div class="value">{{ path }}</div>
       </div>
       <div class="item">
