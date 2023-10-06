@@ -42,8 +42,46 @@
         searchRemark:'',
         inputFocusRemark:false,
         selectedOption:-1,
-        remarkOptions:[{title:"1",content:"zzz"},{title:"2",content:"xvdvx"},{title:"3",content:"sdfsdfsdfsd"}]
+        remarkOptions:[{title:"1",content:"zzz"},{title:"2",content:"xvdvx"},{title:"3",content:"sdfsdfsdfsd"}],
+        remarkOptionsOrg:[],
+        remarkContents:[]
       }
+    },
+    watch:{
+      searchRemark:function(newVal, oldVal){
+        // 값이 변경되면 아래 핸들러가 수행이 된다 
+        var self=this;
+
+        self.remarkOptions=self.remarkOptionsOrg.filter(function(codeItem){
+          return codeItem.title.substr(0, newVal.length).toLowerCase() === newVal.toLowerCase()
+        })
+        this.inputFocusRemark = true
+
+      }
+    },
+    mounted(){
+
+      ipcRenderer.send(Constant.GET_SKMC_REMARK, null)
+
+      ipcRenderer.on(Constant.GET_SKMC_REMARK, function(event,results){
+        console.log("-----------------------")
+        console.log("-----------------------")
+        console.log("-----------------------")
+        console.log(results);
+
+        // 초기화 목적 -> 이거 아니면 데이터 중복돼서 쌓임
+        self.remarkOptions=[]
+        
+        results.forEach(function(item){
+          self.remarkOptions.push({title:item.REMARK_CD, content:item.REMARK_CONTENTS})
+        })
+
+        self.remarkOptionsOrg=self.remarkOptions;
+
+      })
+    },
+    beforeDestroy(){
+      ipcRenderer.removeAllListeners(Constant.GET_SKMC_REMARK)
     },
     methods:{
       // @focus 인풋을 클릭(포커스)하면 onFocusDataRemark 실행
@@ -59,7 +97,20 @@
         },300)
       },
       onEnterRemark(){
-        
+        //selectedOption이 정상적인 범위 내에 있을 때
+        if(this.selectedOption>=0 && this.selectedOption < this.remarkOptions.length){  
+          this.searchRemark=this.remarkOptions[this.selectedOption].title
+        }
+        this.remarkOptions.forEach(opt=>{
+          if(opt.title===this.searchRemark){
+            var obj={
+              remarkCd:opt.title,
+              text:opt.content
+            }
+            this.remarkContents.push(obj);
+          }
+        })
+        this.onFocusOutDataRemark()
       },
       onKeyUp(){
         if(this.selectedOption>0){
@@ -76,9 +127,22 @@
       onScrollOption(){
         var container=this.$refs.scrollContainer;
         var option=this.$refs.option[this.selectedOption]; //selectedOption -> 숫자
-        if(){
-          
+        if(container && option){
+          var containerRect=container.getBoundingClientRect();
+          var optionRect=option.getBoundingClientRect();
+          if(optionRect.bottom>containerRect.bottom){
+            
+          }
         }
+      },
+      onMouseEnter(index){
+        //up-down키로 선택을 하다가도 마우스를 올리면 선택이 바뀜
+        //이렇게 안 하면 두 경우 전부 선택됨
+        this.selectedOption=index;
+      },
+      onchangeRemarkCd(item){ //item=opt
+        this.searchRemark=item.title;
+        this.$refs.remarkInput.focus();
       }
 
     }
@@ -87,4 +151,13 @@
 
 <style>
   /* CSS */
+  .dataOptions,.dataRemarkOptions {
+    color: black;
+    cursor: pointer;
+    z-index: 200;
+  }
+
+  .dataOptions:hover, .dataRemarkOptions.active {
+    background-color: lightblue;
+  }
 </style>
