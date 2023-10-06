@@ -39,7 +39,7 @@
     ✅ renderer/store/modules/Testpage.js
 
     const INIT_TEST_PAGE={
-      testType:Object.freeze([
+      testType:Object.freeze([ ❕(5)
         { value: '01', text: 'PB standard(WBC Diff)' },
         { value: '04', text: 'PB premium(PBS)' },
         { value: '02', text: 'Body fluid default' },
@@ -51,8 +51,8 @@
     const state=INIT_TEST_PAGE
 
     const getters={
-      getTestType:state=>{
-        return state.testType
+      getTestType:state=>{ ❕(3)
+        return state.testType ❕(4)
       }
     }
 
@@ -60,7 +60,7 @@
     ✅ src/Constants.js
 
     export default Object.freeze({
-      GET_TEST_TYPE: 'getTestType',
+      GET_TEST_TYPE: 'getTestType', ❕(2)
     }
 
 
@@ -78,7 +78,17 @@
       export default {
         computed:{
           ...mapGetters({
-            testTypeList:Constant.GET_TEST_TYPE,
+            testTypeList:Constant.GET_TEST_TYPE, ❕(1)
+            
+            최종적으로 testType:Object.freeze([ 
+            { value: '01', text: 'PB standard(WBC Diff)' },
+            { value: '04', text: 'PB premium(PBS)' },
+            { value: '02', text: 'Body fluid default' },
+            { value: '03', text: 'Body fluid select' },
+            { value: '05', text: 'Quality Check' }])
+            를 리턴 받게됨 ❕(6)
+
+
           })
         }
       }
