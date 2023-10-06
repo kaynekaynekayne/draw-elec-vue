@@ -33,6 +33,63 @@
       </b-col>
     </b-row>
   </div>
+  <!--
+    ExceController.vue 얘기
+
+    ✅ renderer/store/modules/Testpage.js
+
+    const INIT_TEST_PAGE={
+      testType:Object.freeze([
+        { value: '01', text: 'PB standard(WBC Diff)' },
+        { value: '04', text: 'PB premium(PBS)' },
+        { value: '02', text: 'Body fluid default' },
+        { value: '03', text: 'Body fluid select' },
+        { value: '05', text: 'Quality Check' }
+      ])
+    }
+    
+    const state=INIT_TEST_PAGE
+
+    const getters={
+      getTestType:state=>{
+        return state.testType
+      }
+    }
+
+    
+    ✅ src/Constants.js
+
+    export default Object.freeze({
+      GET_TEST_TYPE: 'getTestType',
+    }
+
+
+    ✅ renderer/components/TabPages/Test/ExecController.vue
+    
+    <template>
+      <b-col>
+        <b-form-select :options='testTypeList'></b-form-select>
+      </b-col>
+    </template>
+    <script>
+      import {mapGetters} from 'vuex';
+      import Constant from '../../../../Constant'
+
+      export default {
+        computed:{
+          ...mapGetters({
+            testTypeList:Constant.GET_TEST_TYPE,
+          })
+        }
+      }
+    
+    
+    </script>
+
+
+
+
+  -->
 </template>
 
 <script>
